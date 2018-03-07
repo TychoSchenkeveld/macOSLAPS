@@ -1,5 +1,7 @@
-macOS LAPS (Local Administrator Password Solution)
+macOS LAPS (Local Administrator Password Solution) - Modified version with encryption
 ==================================================
+**This is a modified version of https://github.com/joshua-d-miller/macOSLAPS and will probably not suit your needs! Please refer to Josh Miller's branch for the official macOSLAPS**
+
 Swift binary that utilizes Open Directory to determine if the
 local administrator password has expired as specified by the Active Directory
 attribute dsAttrTypeNative:ms-Mcs-AdmPwdExpirationTime. If this is the case
@@ -8,6 +10,14 @@ and a new expiration date will be set. The LAPS password is stored in the
 Active Directory attribute dsAttrTypeNative:ms-Mcs-AdmPwd. This attribute can
 only be read by those designated to view the attribute. The computer record
 can write to this attribute but it cannot read.
+
+Modifications
+-------------
+
+This version has the following modifications:
+* Expirydate format: Uses YYYYMMDDhhmmss.0Z format instead of Windows AD format (number of 100ns intervals since 1-1-1601)
+* Encryption: Encrypts the password with a custom (base64-encoded) RSA public key, to be decoded by a separate application **Note: The decoding application is not included because it wasn't written by me**
+* More error handling: When the AD submit fails it will not change the password locally. When the local password change fails, it will revert the AD password to the original, so that it doesn't get out of sync.
 
 Requirements
 ------------
@@ -53,6 +63,7 @@ By default, the local admin you choose has its keychain deleted since we wouldn'
 
 Credits
 --------------
+* Josh Miller - For writing the original application and saving me days of time having to figure all this out!
 * Rusty Myers - For helping to determine that Windows has its own time method vs
 Epoch time
 * Matt Hansen - For critiquing and assisting with generating the random password
