@@ -16,7 +16,7 @@ Modifications
 
 This version has the following modifications:
 * Expirydate format: Uses YYYYMMDDhhmmss.0Z format instead of Windows AD format (number of 100ns intervals since 1-1-1601)
-* Encryption: Encrypts the password with a custom (base64-encoded) RSA public key, to be decoded by a separate application **Note: The decoding application is not included because it wasn't written by me**
+* Encryption: Encrypts the password with a custom (base64-encoded) RSA public key, to be decoded by a separate application. **Note: The decoding application is not included because it wasn't written by me**
 * More error handling: When the AD submit fails it will not change the password locally. When the local password change fails, it will revert the AD password to the original, so that it doesn't get out of sync.
 
 Requirements
